@@ -25,35 +25,45 @@ word2 = []
 for x in word:
 	word2.append("\u25A0")
 
-print(word)
-
-
-while lives > 0:
+#print(word)
+while True:
+	level = input("Выберите сложнолсть (введите цифру от одного до трех)\n 1 - 3 попытки\n2 - 6 попыток\n3 - 9 попыток\nВаш ответ:")
+	level = int(level)
 	
-	if not checkLetters():
-		print("Вы угадали слово!")
-		print(word.upper())
-		break
-	
-	for x in word2:
-		print(x, end=' ')
-	print(f"\nУ вас осталось {lives} жизней")
-	letter = input("Введите букву или слово: ")
+	if level == 1:
+		lives = 3
+	elif level == 2:
+		lives = 6
+	else: 
+		lives = 9	
 
-	letter = str(letter)
-
-	if len(letter) == 1:
-		letterResult = letterCheck(letter, wordArr)
-		if len(letterResult) > 0:
-			lives += 1
-		for x in letterResult:
-			word2[x] = letter
-
-	else:
-		if letter == word:
+	while lives > 0:
+		
+		if not checkLetters():
 			print("Вы угадали слово!")
 			print(word.upper())
-			lives = 0
 			break
-	lives -= 1        
+		
+		for x in word2:
+			print(x, end=' ')
+		print(f"\nУ вас осталось {lives} жизней")
+		letter = input("Введите букву или слово: ")
+
+		letter = str(letter)
+
+		if len(letter) == 1:
+			letterResult = letterCheck(letter, wordArr)
+			if len(letterResult) > 0:
+				lives += 1
+				print(f"Вы угадали букву {letter}")
+			for x in letterResult:
+				word2[x] = letter
+
+		else:
+			if letter == word:
+				print("Вы угадали слово!")
+				print(word.upper())
+				lives = 0
+				break
+		lives -= 1        
 
